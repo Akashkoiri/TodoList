@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">        
+        <script defer src="{% static 'js/main.js' %}"></script>
+
+        <title>Todo List</title>
+    </head>
+
+    <body>
+
+        <div class="box">
+            <h4>Task Manager</h4>
+            <form id="form" action="" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="Enter a task here" name="NewTask" required>
+                <button type="submit" id="submit" name="submit">Add Task</button>
+            </form>
+            <a href="{% url 'logout' %}"><button class="btn finished" >Logout</button></a>
+            
+
+            <div class="lower">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Task</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for todo in todos %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>
+                                    <a class="task" href="{% url 'edit' todo.id %}"> {{todo.task | truncatechars:40}} </a>
+                                </td>
+                                {% if todo.status == True %}
+                                    <td>Completed</td>
+                                {% else %}
+                                    <td>In progress</td>
+                                {% endif %}
+                                <td>
+                                    <a href="{% url 'update' todo.id %}"><button class="btn finished" >Finish</button></a>
+                                    <a href="{% url 'delete' todo.id %}"><button class="btn delete" >Delete</button></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>

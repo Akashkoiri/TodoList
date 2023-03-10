@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <script defer src="{% static 'js/main.js' %}"></script>
+        
+        <title>Todo List</title>
+    </head>
+
+    <body>
+
+        <div class="box">
+            <h4>Task Manager</h4>
+            <a href="/"><button type="submit" class="btn back" name="submit">Back</button></a>
+        
+            <form id="form" action="" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn" name="submit">Save</button>
+                <textarea name="NewTask" class="text" cols="30" rows="10" required>{{todo.task}}</textarea>
+            </form>
+        </div>
+
+    </body>
+</html>
